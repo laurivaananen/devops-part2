@@ -1,0 +1,22 @@
+version: '3.5'
+
+services:
+  backend:
+    image: laurivaananen/backend
+    build: backend-example-docker/.
+    volumes:
+      - ./backend-example-docker/logs.txt:/workdir/logs.txt
+    container_name: backend
+    environment:
+      - FRONT_URL=http://localhost:5000
+    ports:
+      - 8000:8000
+  
+  frontend:
+    image: laurivaananen/frontend
+    build: frontend-example-docker/.
+    container_name: frontend
+    environment:
+      - API_URL=http://localhost:8000
+    ports:
+      - 5000:5000

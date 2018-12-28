@@ -1,0 +1,20 @@
+version: '3.5'
+
+services:
+  backend:
+    image: laurivaananen/backend
+    build: backend-example-docker/.
+    volumes:
+      - ./backend-example-docker/logs.txt:/workdir/logs.txt
+    container_name: backend
+    environment:
+      - FRONT_URL=http://localhost:5000
+      - REDIS=redis
+      - REDIS_PORT=6379
+    ports:
+      - 8000:8000
+  redis:
+    image: redis
+    volumes:
+      - ./data:/data
+    container_name: redis
